@@ -1,0 +1,46 @@
+{
+    "name": "InputSystem",
+    "maps": [
+        {
+            "name": "Starship",
+            "id": "30c0a0bc-ed21-4470-8c0a-60131cf68c87",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Button",
+                    "id": "008bf609-c16c-4394-8c97-f8baf5a8c4b6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9d188710-6414-4619-b974-e72414ca99ea",
+                    "path": "<Keyboard>/#(W)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard",
+            "bindingGroup": "Keyboard",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
