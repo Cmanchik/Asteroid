@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Logic.Movement
 {
@@ -25,8 +24,15 @@ namespace Assets.Scripts.Logic.Movement
 
         public override void Move()
         {
-            currentAcceleration += currentAcceleration + acceleration >= maxAcceleration ? maxAcceleration : acceleration;
             transform.Translate(Vector2.up * currentAcceleration);
+        }
+
+        /// <summary>
+        /// Добавление ускорения
+        /// </summary>
+        public void Accelerate()
+        {
+            currentAcceleration += currentAcceleration + acceleration >= maxAcceleration ? maxAcceleration : acceleration;
         }
 
         /// <summary>
