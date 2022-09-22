@@ -6,9 +6,18 @@
             "id": "30c0a0bc-ed21-4470-8c0a-60131cf68c87",
             "actions": [
                 {
-                    "name": "Movement",
+                    "name": "Accelerate",
                     "type": "Button",
                     "id": "008bf609-c16c-4394-8c97-f8baf5a8c4b6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Turning",
+                    "type": "Button",
+                    "id": "cfdaced5-98de-4fe7-9203-e188a80eedf3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -18,29 +27,50 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "9d188710-6414-4619-b974-e72414ca99ea",
-                    "path": "<Keyboard>/#(W)",
+                    "id": "444c02af-b60d-4cb5-afb6-faa7f1eb37a2",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Movement",
+                    "groups": "",
+                    "action": "Accelerate",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "eb53ee18-b3dc-4b57-bed3-8aa08fc4da5d",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Turning",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "36c705a9-1cd0-4502-baf6-f42173e1d6af",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Turning",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "8bf9b946-cc0d-433a-9010-16c740c27947",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Turning",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
     ],
-    "controlSchemes": [
-        {
-            "name": "Keyboard",
-            "bindingGroup": "Keyboard",
-            "devices": [
-                {
-                    "devicePath": "<Keyboard>",
-                    "isOptional": false,
-                    "isOR": false
-                }
-            ]
-        }
-    ]
+    "controlSchemes": []
 }

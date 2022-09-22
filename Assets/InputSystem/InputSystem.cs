@@ -28,9 +28,18 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
             ""id"": ""30c0a0bc-ed21-4470-8c0a-60131cf68c87"",
             ""actions"": [
                 {
-                    ""name"": ""Movement"",
+                    ""name"": ""Accelerate"",
                     ""type"": ""Button"",
                     ""id"": ""008bf609-c16c-4394-8c97-f8baf5a8c4b6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Turning"",
+                    ""type"": ""Button"",
+                    ""id"": ""cfdaced5-98de-4fe7-9203-e188a80eedf3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -40,35 +49,57 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""9d188710-6414-4619-b974-e72414ca99ea"",
-                    ""path"": ""<Keyboard>/#(W)"",
+                    ""id"": ""444c02af-b60d-4cb5-afb6-faa7f1eb37a2"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
+                    ""groups"": """",
+                    ""action"": ""Accelerate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""eb53ee18-b3dc-4b57-bed3-8aa08fc4da5d"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Turning"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""36c705a9-1cd0-4502-baf6-f42173e1d6af"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Turning"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""8bf9b946-cc0d-433a-9010-16c740c27947"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Turning"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
     ],
-    ""controlSchemes"": [
-        {
-            ""name"": ""Keyboard"",
-            ""bindingGroup"": ""Keyboard"",
-            ""devices"": [
-                {
-                    ""devicePath"": ""<Keyboard>"",
-                    ""isOptional"": false,
-                    ""isOR"": false
-                }
-            ]
-        }
-    ]
+    ""controlSchemes"": []
 }");
         // Starship
         m_Starship = asset.FindActionMap("Starship", throwIfNotFound: true);
-        m_Starship_Movement = m_Starship.FindAction("Movement", throwIfNotFound: true);
+        m_Starship_Accelerate = m_Starship.FindAction("Accelerate", throwIfNotFound: true);
+        m_Starship_Turning = m_Starship.FindAction("Turning", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -128,12 +159,14 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
     // Starship
     private readonly InputActionMap m_Starship;
     private IStarshipActions m_StarshipActionsCallbackInterface;
-    private readonly InputAction m_Starship_Movement;
+    private readonly InputAction m_Starship_Accelerate;
+    private readonly InputAction m_Starship_Turning;
     public struct StarshipActions
     {
         private @InputSystem m_Wrapper;
         public StarshipActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_Starship_Movement;
+        public InputAction @Accelerate => m_Wrapper.m_Starship_Accelerate;
+        public InputAction @Turning => m_Wrapper.m_Starship_Turning;
         public InputActionMap Get() { return m_Wrapper.m_Starship; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -143,31 +176,29 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_StarshipActionsCallbackInterface != null)
             {
-                @Movement.started -= m_Wrapper.m_StarshipActionsCallbackInterface.OnMovement;
-                @Movement.performed -= m_Wrapper.m_StarshipActionsCallbackInterface.OnMovement;
-                @Movement.canceled -= m_Wrapper.m_StarshipActionsCallbackInterface.OnMovement;
+                @Accelerate.started -= m_Wrapper.m_StarshipActionsCallbackInterface.OnAccelerate;
+                @Accelerate.performed -= m_Wrapper.m_StarshipActionsCallbackInterface.OnAccelerate;
+                @Accelerate.canceled -= m_Wrapper.m_StarshipActionsCallbackInterface.OnAccelerate;
+                @Turning.started -= m_Wrapper.m_StarshipActionsCallbackInterface.OnTurning;
+                @Turning.performed -= m_Wrapper.m_StarshipActionsCallbackInterface.OnTurning;
+                @Turning.canceled -= m_Wrapper.m_StarshipActionsCallbackInterface.OnTurning;
             }
             m_Wrapper.m_StarshipActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Movement.started += instance.OnMovement;
-                @Movement.performed += instance.OnMovement;
-                @Movement.canceled += instance.OnMovement;
+                @Accelerate.started += instance.OnAccelerate;
+                @Accelerate.performed += instance.OnAccelerate;
+                @Accelerate.canceled += instance.OnAccelerate;
+                @Turning.started += instance.OnTurning;
+                @Turning.performed += instance.OnTurning;
+                @Turning.canceled += instance.OnTurning;
             }
         }
     }
     public StarshipActions @Starship => new StarshipActions(this);
-    private int m_KeyboardSchemeIndex = -1;
-    public InputControlScheme KeyboardScheme
-    {
-        get
-        {
-            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
-            return asset.controlSchemes[m_KeyboardSchemeIndex];
-        }
-    }
     public interface IStarshipActions
     {
-        void OnMovement(InputAction.CallbackContext context);
+        void OnAccelerate(InputAction.CallbackContext context);
+        void OnTurning(InputAction.CallbackContext context);
     }
 }

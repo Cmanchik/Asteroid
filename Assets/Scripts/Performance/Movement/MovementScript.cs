@@ -5,9 +5,12 @@ namespace Assets.Scripts.Performance.Movement
 {
     public class MovementScript : MonoBehaviour
     {
-        [SerializeField] private float movementResistance;
         [SerializeField] private float acceleration;
         [SerializeField] private float maxAcceleration;
+
+        [Space]
+
+        [SerializeField] private Transform starshipBody;
 
         public float CurrentSpeed { get { return movementLogic.CurrentSpeed; } }
 
@@ -19,7 +22,7 @@ namespace Assets.Scripts.Performance.Movement
 
         private void Awake()
         {
-            movementLogic = new StarshipMovement(movementResistance, acceleration, maxAcceleration, transform);
+            movementLogic = new StarshipMovement(new Vector2(0, acceleration), maxAcceleration, transform, starshipBody);
             input = new InputSystem();
 
             canMove = false;
@@ -27,15 +30,14 @@ namespace Assets.Scripts.Performance.Movement
 
         private void Start()
         {
-            input.Starship.Movement.started += context => canMove = true;
-
-            input.Starship.Movement.canceled += context => canMove = false;
+            input.Starship.Accelerate.started += context => canMove = true;
+            input.Starship.Accelerate.canceled += context => canMove = false;
         }
 
         private void FixedUpdate()
         {
-            movementLogic.ResistMovement();
             movementLogic.Move();
+            movementLogic.Turn(input.Starship.Turning.ReadValue<float>());
 
             if (canMove) movementLogic.Accelerate();
         }

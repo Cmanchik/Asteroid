@@ -1,13 +1,19 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.Logic.Movement
 {
     public class StarshipMovement : AMovementLogic
     {
         /// <summary>
-        /// Сила сопротивления движению
+        /// Тело для отображения поворота
         /// </summary>
-        private readonly float movementResistance;
+        private readonly Transform starshipBody;
+
+        /// <summary>
+        /// Перевод из градусов в радианы угла Z
+        /// </summary>
+        private float RadianAngleZ { get { return (float)((starshipBody.localEulerAngles.z * Math.PI) / 180); } }
 
         /// <summary>
         /// Конструктор движения коробля
@@ -16,15 +22,16 @@ namespace Assets.Scripts.Logic.Movement
         /// <param name="acceleration">Величина с которой будет ускорятся объект</param>
         /// <param name="maxAcceleration">Макс величина ускорения</param>
         /// <param name="transform">Положение объекта</param>
-        public StarshipMovement(float movementResistance, float acceleration, float maxAcceleration, Transform transform) : 
+        /// <param name="starshipBody">Тело корабля</param>
+        public StarshipMovement(Vector2 acceleration, float maxAcceleration, Transform transform, Transform starshipBody) : 
             base(acceleration, maxAcceleration, transform)
         {
-            this.movementResistance = movementResistance;
+            this.starshipBody = starshipBody;
         }
 
         public override void Move()
         {
-            transform.Translate(Vector2.up * currentAcceleration);
+            transform.Translate(currentAcceleration);
         }
 
         /// <summary>
@@ -32,15 +39,42 @@ namespace Assets.Scripts.Logic.Movement
         /// </summary>
         public void Accelerate()
         {
-            currentAcceleration += currentAcceleration + acceleration >= maxAcceleration ? maxAcceleration : acceleration;
+            double newPosX = Math.Cos(RadianAngleZ) * acceleration.x + acceleration.y * Math.Sin(RadianAngleZ);
+            double newPosY = acceleration.y * Math.Cos(RadianAngleZ) - acceleration.x * Math.Sin(RadianAngleZ);
+
+            Vector2 currentDir = new(-(float)newPosX, (float)newPosY);
+            Vector2 newDirAcceleration = currentDir + currentAcceleration;
+
+            float lengthNewAcceleration = CalculateLengthVector(newDirAcceleration);
+
+            if (lengthNewAcceleration > maxAcceleration)
+            {
+                float reductionDegree = maxAcceleration / lengthNewAcceleration;
+                currentAcceleration = newDirAcceleration * reductionDegree;
+            }
+            else
+            {
+                currentAcceleration = newDirAcceleration;
+            }
         }
 
         /// <summary>
-        /// Логика затухания движения
+        /// Повернуть корабль
         /// </summary>
-        public void ResistMovement()
+        /// <param name="turningDir"></param>
+        public void Turn(float turningDir)
         {
-            currentAcceleration -= currentAcceleration - movementResistance <= 0 ? currentAcceleration : movementResistance;
+            starshipBody.Rotate(new Vector3(0, 0, (float)turningDir));
+        }
+
+        /// <summary>
+        /// Вычеслить длину вектора
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <returns></returns>
+        private float CalculateLengthVector(Vector2 vector)
+        {
+            return (float)Math.Sqrt(Math.Pow(vector.x, 2) + Math.Pow(vector.y, 2));
         }
     }
 }
