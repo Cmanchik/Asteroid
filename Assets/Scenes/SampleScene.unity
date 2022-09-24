@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 1461610433}
   - component: {fileID: 1461610435}
   - component: {fileID: 1461610436}
+  - component: {fileID: 1461610437}
   m_Layer: 0
   m_Name: Border
   m_TagString: Untagged
@@ -294,6 +295,21 @@ MonoBehaviour:
   spawnDistance: 18
   repeateRate: 2
   asteroidPrefab: {fileID: 1436976469209293806, guid: 248ecaef213b84b44b6f5446fe9510b8, type: 3}
+--- !u!114 &1461610437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461610432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23fb137e264268409a0e25755cade69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!114 &1598017715 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8777643704995112175, guid: ef6a6364e74c34a49a821a196634a7f9, type: 3}
@@ -536,6 +552,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2038763182, guid: ef6a6364e74c34a49a821a196634a7f9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109707278495196019, guid: ef6a6364e74c34a49a821a196634a7f9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7238258732158779057, guid: ef6a6364e74c34a49a821a196634a7f9, type: 3}
       propertyPath: m_SortingOrder
       value: 1
@@ -543,6 +567,10 @@ PrefabInstance:
     - target: {fileID: 8376807802618159592, guid: ef6a6364e74c34a49a821a196634a7f9, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376807802618159592, guid: ef6a6364e74c34a49a821a196634a7f9, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8376807802618159594, guid: ef6a6364e74c34a49a821a196634a7f9, type: 3}
       propertyPath: m_RootOrder
