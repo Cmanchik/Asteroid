@@ -10,7 +10,7 @@ namespace Assets.Scripts.UI
 
         [Space]
 
-        [SerializeField] private MovementScript movementLogic;
+        [SerializeField] private StartshipMovementScript movementLogic;
 
         private void Update()
         {
