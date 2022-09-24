@@ -18,7 +18,7 @@ namespace Assets.Scripts.Logic.Spawner
 
             float angle = Random.Range(-15, 15);
             Quaternion rotation = Quaternion.AngleAxis(angle, new Vector3(0, 0, 1));
-            Vector2 direction = rotation * -spawnPoint;
+            Vector2 direction = rotation * -spawnPoint / 500;
 
             return new AsteroidSpawnInfo
             {

@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 1461610434}
   - component: {fileID: 1461610433}
   - component: {fileID: 1461610435}
+  - component: {fileID: 1461610436}
   m_Layer: 0
   m_Name: Border
   m_TagString: Untagged
@@ -278,6 +279,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e1e643c1b2585e4ea662f585901b02a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1461610436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461610432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89960fb58e6a84240aa577ecd0125bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnDistance: 18
+  repeateRate: 2
+  asteroidPrefab: {fileID: 1436976469209293806, guid: 248ecaef213b84b44b6f5446fe9510b8, type: 3}
 --- !u!114 &1598017715 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8777643704995112175, guid: ef6a6364e74c34a49a821a196634a7f9, type: 3}
