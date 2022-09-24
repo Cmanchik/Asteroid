@@ -3,7 +3,7 @@ using Assets.Scripts.Logic.Movement;
 
 namespace Assets.Scripts.Performance.Movement
 {
-    public class MovementScript : MonoBehaviour
+    public class StartshipMovementScript : MonoBehaviour
     {
         [SerializeField] private float acceleration;
         [SerializeField] private float maxAcceleration;
