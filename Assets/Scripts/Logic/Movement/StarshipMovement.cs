@@ -11,6 +11,11 @@ namespace Assets.Scripts.Logic.Movement
         private readonly Transform starshipBody;
 
         /// <summary>
+        /// Макс допустимое ускорение
+        /// </summary>
+        protected readonly float maxAcceleration;
+
+        /// <summary>
         /// Перевод из градусов в радианы угла Z
         /// </summary>
         private float RadianAngleZ { get { return (float)((starshipBody.localEulerAngles.z * Math.PI) / 180); } }
@@ -24,9 +29,10 @@ namespace Assets.Scripts.Logic.Movement
         /// <param name="transform">Положение объекта</param>
         /// <param name="starshipBody">Тело корабля</param>
         public StarshipMovement(Vector2 acceleration, float maxAcceleration, Transform transform, Transform starshipBody) : 
-            base(acceleration, maxAcceleration, transform)
+            base(acceleration, transform)
         {
             this.starshipBody = starshipBody;
+            this.maxAcceleration = maxAcceleration;
         }
 
         public override void Move()

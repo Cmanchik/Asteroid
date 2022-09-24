@@ -16,11 +16,6 @@ namespace Assets.Scripts.Logic.Movement
         protected Vector2 currentAcceleration;
 
         /// <summary>
-        /// Макс допустимое ускорение
-        /// </summary>
-        protected readonly float maxAcceleration;
-
-        /// <summary>
         /// Положение объекта
         /// </summary>
         protected readonly Transform transform;
@@ -36,10 +31,9 @@ namespace Assets.Scripts.Logic.Movement
         /// <param name="acceleration">Величина с которой будет ускорятся объект</param>
         /// <param name="maxAcceleration">Макс величина ускорения</param>
         /// <param name="transform">Положение объекта</param>
-        public AMovementLogic(Vector2 acceleration, float maxAcceleration, Transform transform)
+        public AMovementLogic(Vector2 acceleration, Transform transform)
         {
             this.acceleration = acceleration;
-            this.maxAcceleration = maxAcceleration;
             this.transform = transform;
         }
 
