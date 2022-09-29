@@ -16,7 +16,7 @@ namespace Assets.Scripts.Logic.Weapon
         }
 
         /// <summary>
-        /// Отподписка от событие отката оружия
+        /// Логика полета снаряда
         /// </summary>
         /// <returns>Возвращает направление полёта снаряда без его поворота. Если снаряд нельзя выпустить, то возвращает null</returns>
         public override ProjectileSpawnData Shoot()
