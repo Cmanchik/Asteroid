@@ -9,7 +9,7 @@ namespace Assets.Scripts.Logic.Weapon
         /// <summary>
         /// Перевод из градусов в радианы угла Z
         /// </summary>
-        protected float RadianAngleZ { get { return (float)((weapon.localEulerAngles.z * Math.PI) / 180); } }
+        protected float RadianAngleZ { get { return (float)((weapon.eulerAngles.z * Math.PI) / 180); } }
 
         public MachineGunWeapon(float speedProjectile, float attackRate, Transform weapon) : base(speedProjectile, attackRate, weapon)
         {
@@ -30,6 +30,7 @@ namespace Assets.Scripts.Logic.Weapon
             Vector2 newDirProjectile = currentDir * speedProjectile;
 
             CanAttacked = false;
+            OnShootedInvoke();
 
             return new ProjectileSpawnData
             {

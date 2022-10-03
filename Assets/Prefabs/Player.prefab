@@ -181,6 +181,8 @@ GameObject:
   - component: {fileID: 8777643704995112175}
   - component: {fileID: 3672895103027991436}
   - component: {fileID: 1522562728325466369}
+  - component: {fileID: 1605736551403341322}
+  - component: {fileID: 958279547067178872}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -266,3 +268,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1605736551403341322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8376807802618159592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e1c0bab692c2f48aceb98f910096ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedProjectile: 0.1
+  attackRate: 0.3
+  weaponPos: {fileID: 323597532668478715}
+  projectilePrefab: {fileID: 8862998192248365589, guid: 33f40e4b2bf19be46b30a6958e4526c6, type: 3}
+--- !u!114 &958279547067178872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8376807802618159592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c1102a44cf3fe64d93fad8dc8194d23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedProjectile: 0.1
+  attackRate: 1
+  weaponPos: {fileID: 323597532668478715}
+  projectilePrefab: {fileID: 4487934218564222830, guid: 4608aa61cc742094b90c3efc90ee98ff, type: 3}
+  chargingRecoveryTime: 3
+  maxCharges: 3

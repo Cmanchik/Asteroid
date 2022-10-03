@@ -44,6 +44,24 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AttackMachineGun"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5ceb281-d6a6-4b5b-8286-fbb46522a214"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AttackLaser"",
+                    ""type"": ""Button"",
+                    ""id"": ""b5bfeb99-76b8-433b-b29a-b65a023c05ec"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -90,6 +108,28 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                     ""action"": ""Turning"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ea20425-4874-4927-bbcb-6fcc55735bfd"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackMachineGun"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""128d1b7a-de8c-450a-a974-32edd41f32b3"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackLaser"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -100,6 +140,8 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
         m_Starship = asset.FindActionMap("Starship", throwIfNotFound: true);
         m_Starship_Accelerate = m_Starship.FindAction("Accelerate", throwIfNotFound: true);
         m_Starship_Turning = m_Starship.FindAction("Turning", throwIfNotFound: true);
+        m_Starship_AttackMachineGun = m_Starship.FindAction("AttackMachineGun", throwIfNotFound: true);
+        m_Starship_AttackLaser = m_Starship.FindAction("AttackLaser", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -161,12 +203,16 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
     private IStarshipActions m_StarshipActionsCallbackInterface;
     private readonly InputAction m_Starship_Accelerate;
     private readonly InputAction m_Starship_Turning;
+    private readonly InputAction m_Starship_AttackMachineGun;
+    private readonly InputAction m_Starship_AttackLaser;
     public struct StarshipActions
     {
         private @InputSystem m_Wrapper;
         public StarshipActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @Accelerate => m_Wrapper.m_Starship_Accelerate;
         public InputAction @Turning => m_Wrapper.m_Starship_Turning;
+        public InputAction @AttackMachineGun => m_Wrapper.m_Starship_AttackMachineGun;
+        public InputAction @AttackLaser => m_Wrapper.m_Starship_AttackLaser;
         public InputActionMap Get() { return m_Wrapper.m_Starship; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -182,6 +228,12 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                 @Turning.started -= m_Wrapper.m_StarshipActionsCallbackInterface.OnTurning;
                 @Turning.performed -= m_Wrapper.m_StarshipActionsCallbackInterface.OnTurning;
                 @Turning.canceled -= m_Wrapper.m_StarshipActionsCallbackInterface.OnTurning;
+                @AttackMachineGun.started -= m_Wrapper.m_StarshipActionsCallbackInterface.OnAttackMachineGun;
+                @AttackMachineGun.performed -= m_Wrapper.m_StarshipActionsCallbackInterface.OnAttackMachineGun;
+                @AttackMachineGun.canceled -= m_Wrapper.m_StarshipActionsCallbackInterface.OnAttackMachineGun;
+                @AttackLaser.started -= m_Wrapper.m_StarshipActionsCallbackInterface.OnAttackLaser;
+                @AttackLaser.performed -= m_Wrapper.m_StarshipActionsCallbackInterface.OnAttackLaser;
+                @AttackLaser.canceled -= m_Wrapper.m_StarshipActionsCallbackInterface.OnAttackLaser;
             }
             m_Wrapper.m_StarshipActionsCallbackInterface = instance;
             if (instance != null)
@@ -192,6 +244,12 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                 @Turning.started += instance.OnTurning;
                 @Turning.performed += instance.OnTurning;
                 @Turning.canceled += instance.OnTurning;
+                @AttackMachineGun.started += instance.OnAttackMachineGun;
+                @AttackMachineGun.performed += instance.OnAttackMachineGun;
+                @AttackMachineGun.canceled += instance.OnAttackMachineGun;
+                @AttackLaser.started += instance.OnAttackLaser;
+                @AttackLaser.performed += instance.OnAttackLaser;
+                @AttackLaser.canceled += instance.OnAttackLaser;
             }
         }
     }
@@ -200,5 +258,7 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
     {
         void OnAccelerate(InputAction.CallbackContext context);
         void OnTurning(InputAction.CallbackContext context);
+        void OnAttackMachineGun(InputAction.CallbackContext context);
+        void OnAttackLaser(InputAction.CallbackContext context);
     }
 }

@@ -1,9 +1,10 @@
-﻿using System.Timers;
+﻿using System;
+using System.Timers;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic.Weapon
 {
-    public class AChargingWeapon : AWeapon
+    public abstract class AChargingWeapon : AWeapon
     {
         /// <summary>
         /// Текущее кол-во зарядов
@@ -34,31 +35,25 @@ namespace Assets.Scripts.Logic.Weapon
         /// </summary>
         protected readonly Timer timerChargeRecovery;
 
-        public AChargingWeapon(float chargeRecoveryTime, float speedProjectile, float attackRate, Transform weapon) 
+        /// <summary>
+        /// Действие при откате заряда
+        /// </summary>
+        public event Action OnChargerRecovered;
+
+        public AChargingWeapon(int maxCharges, float chargeRecoveryTime, float speedProjectile, float attackRate, Transform weapon) 
             : base(speedProjectile, attackRate, weapon)
         {
-            timerChargeRecovery = new Timer(chargeRecoveryTime);
+            MaxCharges = maxCharges;
+            NumberCharges = maxCharges;
+
+            canAttacked = true;
+
+            timerChargeRecovery = new Timer(chargeRecoveryTime * 1000);
             timerChargeRecovery.Elapsed += TimerChargeRecovery_Elapsed;
+            timerChargeRecovery.AutoReset = true;
         }
 
-        public override ProjectileSpawnData Shoot()
-        {
-            if (!CanAttacked) return null;
-
-            NumberCharges--;
-
-            if (NumberCharges == MaxCharges - 1)
-            {
-                timerChargeRecovery.Start();
-                timerAttack.Start();
-            }
-
-            return new ProjectileSpawnData
-            {
-                Direction = Vector2.up,
-                Rotation = weapon.rotation.eulerAngles
-            };
-        }
+        public abstract override ProjectileSpawnData Shoot();
 
         protected override void OnCooldownAttackEnd(object sender, ElapsedEventArgs e)
         {
@@ -74,7 +69,13 @@ namespace Assets.Scripts.Logic.Weapon
         private void TimerChargeRecovery_Elapsed(object sender, ElapsedEventArgs e)
         {
             NumberCharges++;
+            OnChargerRecoveredInvoke();
             if (NumberCharges == MaxCharges) timerChargeRecovery.Stop();
+        }
+
+        protected void OnChargerRecoveredInvoke()
+        {
+            OnChargerRecovered?.Invoke();
         }
     }
 }

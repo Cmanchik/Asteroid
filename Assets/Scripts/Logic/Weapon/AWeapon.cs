@@ -26,6 +26,8 @@ namespace Assets.Scripts.Logic.Weapon
         /// </summary>
         protected Vector2 directionProjectile;
 
+        public event Action OnShooted;
+
         public virtual bool CanAttacked { get; protected set; }
 
         /// <summary>
@@ -39,9 +41,11 @@ namespace Assets.Scripts.Logic.Weapon
             this.speedProjectile = speedProjectile;
             this.weapon = weapon;
 
-            timerAttack = new Timer(attackRate);
+            timerAttack = new Timer(attackRate * 1000);
             timerAttack.Elapsed += OnCooldownAttackEnd;
+            timerAttack.AutoReset = false;
 
+            CanAttacked = true;
             directionProjectile = Vector2.up;
         }
 
@@ -57,27 +61,15 @@ namespace Assets.Scripts.Logic.Weapon
         }
 
         /// <summary>
-        /// Подписка на событие отката оружия
-        /// </summary>
-        /// <param name="handler">Метод для подписки</param>
-        public void SubCooldownEndEvent(ElapsedEventHandler handler)
-        {
-            timerAttack.Elapsed += handler;
-        }
-
-        /// <summary>
-        /// Отподписка от событие отката оружия
-        /// </summary>
-        /// <param name="handler">Метод для отписки</param>
-        public void UnsubCooldownEndEvent(ElapsedEventHandler handler)
-        {
-            timerAttack.Elapsed -= handler;
-        }
-
-        /// <summary>
         /// Логика выстрела
         /// </summary>
         /// <returns>Возвращает направление полёта снаряда</returns>
         public abstract ProjectileSpawnData Shoot();
+
+        protected void OnShootedInvoke()
+        {
+            timerAttack.Start();
+            OnShooted?.Invoke();
+        }
     }
 }

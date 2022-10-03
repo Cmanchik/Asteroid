@@ -7,44 +7,27 @@ namespace Assets.Scripts.Performance.Weapon
 {
     public class MachineGunWeaponScript : AWeaponScript
     {
-        private MachineGunWeapon machineGun;
 
         private void Awake()
         {
-            machineGun = new MachineGunWeapon(speedProjectile, attackRate, weapon);
+            input = new InputSystem();
+
+            weapon = new MachineGunWeapon(speedProjectile, attackRate, weaponPos);
+            input.Starship.AttackMachineGun.performed += contex => Shoot();
         }
 
-        /// <summary>
-        /// Подписка на событие отката оружия
-        /// </summary>
-        /// <param name="handler">Метод для подписки</param>
-        public void SubCooldownEndEvent(ElapsedEventHandler handler)
+        protected override void Shoot()
         {
-            machineGun.SubCooldownEndEvent(handler);
-        }
-
-        /// <summary>
-        /// Отподписка от событие отката оружия
-        /// </summary>
-        /// <param name="handler">Метод для отписки</param>
-        public void UnsubCooldownEndEvent(ElapsedEventHandler handler)
-        {
-            machineGun.UnsubCooldownEndEvent(handler);
-        }
-
-
-        public override void Shoot()
-        {
-            if (machineGun.CanAttacked)
+            if (weapon.CanAttacked)
             {
-                ProjectileSpawnData projectileData = machineGun.Shoot();
+                ProjectileSpawnData projectileData = weapon.Shoot();
                 if (projectileData == null)
                 {
                     Debug.LogWarning("Попытка атаковать из machineGun, когда это не возможно");
                     return;
                 }
 
-                GameObject projectileInst = Instantiate(projectilePrefab, weapon.position, Quaternion.identity);
+                GameObject projectileInst = Instantiate(projectilePrefab, weaponPos.position, Quaternion.identity);
 
                 try
                 {
@@ -52,7 +35,7 @@ namespace Assets.Scripts.Performance.Weapon
                 }
                 catch (System.Exception e)
                 {
-                    Debug.Log(e);
+                    Debug.LogError(e);
                 }
             }
         }

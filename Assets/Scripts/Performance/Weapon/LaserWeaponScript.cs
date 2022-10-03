@@ -1,33 +1,31 @@
 ﻿using Assets.Scripts.Logic.Weapon;
 using Assets.Scripts.Performance.Movement;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Performance.Weapon
 {
-    public class LaserWeaponScript : AWeaponScript
+    public class LaserWeaponScript : AChargingWeaponScript
     {
-        [SerializeField] private float chargingRecoveryTime;
-
-        private LaserWeapon laserWeapon;
-
         private void Awake()
         {
-            laserWeapon = new LaserWeapon(chargingRecoveryTime, speedProjectile, attackRate, weapon);    
+            input = new InputSystem();
+
+            weapon = new LaserWeapon(maxCharges, chargingRecoveryTime, speedProjectile, attackRate, weaponPos);
+            input.Starship.AttackLaser.performed += context => Shoot();
         }
 
-        public override void Shoot()
+        protected override void Shoot()
         {
-            if (laserWeapon.CanAttacked)
+            if (weapon.CanAttacked)
             {
-                ProjectileSpawnData projectileData = laserWeapon.Shoot();
+                ProjectileSpawnData projectileData = weapon.Shoot();
                 if (projectileData == null)
                 {
                     Debug.LogWarning("Попытка атаковать из laser, когда это не возможно");
                     return;
                 }
 
-                GameObject projectileInst = Instantiate(projectilePrefab, weapon.position, Quaternion.Euler(projectileData.Rotation));
+                GameObject projectileInst = Instantiate(projectilePrefab, weaponPos.position, Quaternion.Euler(projectileData.Rotation));
 
                 try
                 {
