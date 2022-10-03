@@ -8,6 +8,7 @@ namespace Assets.Scripts.Performance.Spawner
     {
         [SerializeField] private float spawnDistance;
         [SerializeField] private float repeateRate;
+        [SerializeField] private float speedAsteroid;
 
         [Space]
 
@@ -17,7 +18,7 @@ namespace Assets.Scripts.Performance.Spawner
 
         private void Awake()
         {
-            spawner = new AsteroidSpawner(spawnDistance);
+            spawner = new AsteroidSpawner(spawnDistance, speedAsteroid);
             StartSpawn();
         }
 

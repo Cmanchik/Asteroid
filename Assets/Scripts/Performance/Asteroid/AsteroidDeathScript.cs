@@ -7,6 +7,7 @@ namespace Assets.Scripts.Performance.Asteroid
 {
     public class AsteroidDeathScript : MonoBehaviour
     {
+        [SerializeField] private float speedAsteroid;
         [SerializeField] private EAsteroidStatus asteroidStatus;
         [SerializeField] private GameObject smallAsteroidPrefab;
 
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Performance.Asteroid
 
         private void Awake()
         {
-            asteroidDeath = new AsteroidDeath(transform);
+            asteroidDeath = new AsteroidDeath(transform, speedAsteroid);
         }
 
         public void Death()

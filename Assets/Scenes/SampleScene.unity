@@ -338,6 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnDistance: 18
   repeateRate: 2
+  speedAsteroid: 3
   asteroidPrefab: {fileID: 1436976469209293806, guid: 248ecaef213b84b44b6f5446fe9510b8, type: 3}
 --- !u!114 &1461610437
 MonoBehaviour:

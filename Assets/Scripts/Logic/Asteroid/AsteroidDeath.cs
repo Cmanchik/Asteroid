@@ -9,11 +9,14 @@ namespace Assets.Scripts.Logic.Asteroid
         private readonly Transform transform;
         private Vector2 direction;
 
+        private readonly float speedAsteroid;
+
         private float RandomRadianAngleZ { get { return (float)((UnityEngine.Random.Range(0, 360) * Math.PI) / 180); } }
 
-        public AsteroidDeath(Transform transform)
+        public AsteroidDeath(Transform transform, float speedAsteroid)
         {
             this.transform = transform;
+            this.speedAsteroid = speedAsteroid;
             direction = Vector2.up;
         }
 
@@ -33,7 +36,7 @@ namespace Assets.Scripts.Logic.Asteroid
             return new AsteroidSpawnInfo()
             {
                 SpawnPoint = transform.position,
-                MovementDirection = currentDir
+                MovementDirection = currentDir * speedAsteroid
             };
         }
     }
