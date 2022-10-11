@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Logic.Spawner;
 using System;
+using Performance;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic.Asteroid
@@ -26,6 +27,8 @@ namespace Assets.Scripts.Logic.Asteroid
         /// <returns>Направление полета для маленького астероида</returns>
         public AsteroidSpawnInfo Death()
         {
+            ScoreScript.Instance.AddPoint();
+            
             float radian = RandomRadianAngleZ;
 
             double newPosX = Math.Cos(radian) * direction.x + direction.y * Math.Sin(radian);
