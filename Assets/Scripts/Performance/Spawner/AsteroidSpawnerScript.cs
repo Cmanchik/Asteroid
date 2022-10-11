@@ -19,7 +19,6 @@ namespace Assets.Scripts.Performance.Spawner
         private void Awake()
         {
             spawner = new AsteroidSpawner(spawnDistance, speedAsteroid);
-            StartSpawn();
         }
 
         private void Spawn()

@@ -64,6 +64,11 @@ namespace Assets.Scripts.Logic.Movement
             }
         }
 
+        public void Reset()
+        {
+            currentAcceleration = Vector2.zero;
+        }
+
         /// <summary>
         /// Повернуть корабль
         /// </summary>

@@ -32,6 +32,7 @@ namespace Assets.Scripts.UI
 
             weapon.SubShootEvent(Shoot);
             weapon.SubRecoveryChargeEvent(RecoveryCharge);
+            weapon.OnResetCharges += ResetCharges;
 
             recovered = false;
         }
@@ -46,7 +47,7 @@ namespace Assets.Scripts.UI
 
         private void RecoveryCharge()
         {
-            charges++;
+            charges = charges + 1 > weapon.MaxChargers ? weapon.MaxChargers : charges + 1;
             numberCharge.text = charges.ToString();
 
             currentTime = recoveryTime;
@@ -68,6 +69,16 @@ namespace Assets.Scripts.UI
 
             charges--;
             numberCharge.text = charges.ToString();
+        }
+
+        private void ResetCharges()
+        {
+            charges = weapon.MaxChargers;
+            numberCharge.text = weapon.MaxChargers.ToString();
+            cooldownIndicator.enabled = false;
+            recovered = false;
+
+            currentTime = recoveryTime;
         }
     }
 }

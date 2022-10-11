@@ -15,11 +15,19 @@ namespace Assets.Scripts.Performance.Weapon
 
         public int CurrentCharges { get { return ((AChargingWeapon)weapon).NumberCharges; } }
 
+        public event Action OnResetCharges;
+
         protected abstract override void Shoot();
 
         public void SubRecoveryChargeEvent(Action action)
         {
             ((AChargingWeapon)weapon).OnChargerRecovered += () => UnityMainThread.wkr.AddJob(action);
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            OnResetCharges?.Invoke();
         }
     }
 }

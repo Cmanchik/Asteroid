@@ -35,7 +35,7 @@ namespace Assets.Scripts.Performance.Weapon
             input.Enable();
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             input.Disable();
         }

@@ -68,14 +68,23 @@ namespace Assets.Scripts.Logic.Weapon
         /// <param name="e"></param>
         private void TimerChargeRecovery_Elapsed(object sender, ElapsedEventArgs e)
         {
-            NumberCharges++;
+            if (NumberCharges + 1 > MaxCharges) NumberCharges = MaxCharges;
+            else NumberCharges++;
+
             OnChargerRecoveredInvoke();
+
             if (NumberCharges == MaxCharges) timerChargeRecovery.Stop();
         }
 
         protected void OnChargerRecoveredInvoke()
         {
             OnChargerRecovered?.Invoke();
+        }
+
+        public void ResetCharges()
+        {
+            NumberCharges = MaxCharges;
+            timerChargeRecovery.Stop();
         }
     }
 }

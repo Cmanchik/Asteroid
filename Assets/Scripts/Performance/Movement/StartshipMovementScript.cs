@@ -50,6 +50,7 @@ namespace Assets.Scripts.Performance.Movement
         private void OnDisable()
         {
             input.Disable();
+            movementLogic.Reset();
         }
     }
 }

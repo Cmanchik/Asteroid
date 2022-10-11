@@ -37,5 +37,12 @@ namespace Assets.Scripts.UI
             coordinateField.text = string.Format(coordinateText, body.position.ToString());
             angleField.text = string.Format(angleText, starShipBody.eulerAngles.z.ToString()); 
         }
+
+        public void Reset()
+        {
+            speedField.text = string.Format(speedText, "0");
+            coordinateField.text = string.Format(coordinateText, Vector2.zero);
+            angleField.text = string.Format(angleText, "0");
+        }
     }
 }
