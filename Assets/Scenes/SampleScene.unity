@@ -332,6 +332,7 @@ GameObject:
   - component: {fileID: 1461610435}
   - component: {fileID: 1461610436}
   - component: {fileID: 1461610437}
+  - component: {fileID: 1461610438}
   m_Layer: 0
   m_Name: Border
   m_TagString: Untagged
@@ -423,6 +424,21 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 192
+--- !u!114 &1461610438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461610432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40ba8fc383910634db73610c413b0527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnDistance: 18
+  repeateRate: 8
+  enemyPrefab: {fileID: 3094784643847221878, guid: 39741135f73842a44be3644ca7c4ebef, type: 3}
 --- !u!1 &1582751392
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +468,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ecca7ba23c34aa1ac6deac1d4edcf4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidPoint: 10
 --- !u!4 &1582751394
 Transform:
   m_ObjectHideFlags: 0
@@ -527,6 +542,7 @@ MonoBehaviour:
   startShipPoint: {fileID: 882933199}
   startShipObject: {fileID: 1099317208}
   asteroidSpawner: {fileID: 1461610436}
+  enemySpawner: {fileID: 1461610438}
   gameOverPanel: {fileID: 400593936}
   startGameButton: {fileID: 690836928}
   scoreText: {fileID: 562960680}

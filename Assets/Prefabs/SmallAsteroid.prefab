@@ -150,5 +150,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedAsteroid: 0
+  deathPoint: 10
   asteroidStatus: 1
   smallAsteroidPrefab: {fileID: 0}

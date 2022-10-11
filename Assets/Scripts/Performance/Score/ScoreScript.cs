@@ -5,8 +5,6 @@ namespace Performance
 {
     public class ScoreScript : Singleton<ScoreScript>
     {
-        [SerializeField] private int asteroidPoint = 10;
-        
         private int score;
         public int Score => score;
 
@@ -15,9 +13,9 @@ namespace Performance
             score = 0;
         }
 
-        public void AddPoint()
+        public void AddPoint(int point)
         {
-            score += asteroidPoint;
+            score += point;
         }
     }
 }

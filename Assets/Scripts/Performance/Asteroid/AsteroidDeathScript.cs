@@ -1,13 +1,15 @@
 ﻿using Assets.Scripts.Logic.Asteroid;
 using Assets.Scripts.Logic.Spawner;
+using Assets.Scripts.Performance.Death;
 using Assets.Scripts.Performance.Movement;
 using UnityEngine;
 
 namespace Assets.Scripts.Performance.Asteroid
 {
-    public class AsteroidDeathScript : MonoBehaviour
+    public class AsteroidDeathScript : DeathScript
     {
         [SerializeField] private float speedAsteroid;
+        [SerializeField] private int deathPoint;
         [SerializeField] private EAsteroidStatus asteroidStatus;
         [SerializeField] private GameObject smallAsteroidPrefab;
 
@@ -15,10 +17,18 @@ namespace Assets.Scripts.Performance.Asteroid
 
         private void Awake()
         {
-            asteroidDeath = new AsteroidDeath(transform, speedAsteroid);
+            asteroidDeath = new AsteroidDeath(transform, speedAsteroid, deathPoint);
         }
 
-        public void Death()
+        private void SpawnSmallAsteroid()
+        {
+            AsteroidSpawnInfo spawnInfo = asteroidDeath.Death();
+
+            GameObject creatingAsteroid = Instantiate(smallAsteroidPrefab, spawnInfo.SpawnPoint, Quaternion.identity);
+            creatingAsteroid.GetComponent<RectilinearMovementScript>().Init(spawnInfo.MovementDirection);
+        }
+
+        public override void Death()
         {
             switch (asteroidStatus)
             {
@@ -31,14 +41,6 @@ namespace Assets.Scripts.Performance.Asteroid
             }
 
             Destroy(gameObject);
-        }
-
-        private void SpawnSmallAsteroid()
-        {
-            AsteroidSpawnInfo spawnInfo = asteroidDeath.Death();
-
-            GameObject creatingAsteroid = Instantiate(smallAsteroidPrefab, spawnInfo.SpawnPoint, Quaternion.identity);
-            creatingAsteroid.GetComponent<RectilinearMovementScript>().Init(spawnInfo.MovementDirection);
         }
     }
 }

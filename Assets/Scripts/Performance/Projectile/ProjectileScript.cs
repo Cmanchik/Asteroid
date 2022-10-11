@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Performance.Asteroid;
+using Assets.Scripts.Performance.Death;
 using UnityEngine;
 
 namespace Assets.Scripts.Performance.Projectile
@@ -12,7 +13,7 @@ namespace Assets.Scripts.Performance.Projectile
         {
             if (layerMask == (layerMask | (1 << collision.gameObject.layer)))
             {
-                collision.GetComponent<AsteroidDeathScript>().Death();
+                collision.GetComponent<DeathScript>().Death();
 
                 if (selfDestruct) Destroy(gameObject);
             }

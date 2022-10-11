@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Assets.Scripts.Logic.Movement;
 using Assets.Scripts.Performance.Movement;
 using Assets.Scripts.Performance.Spawner;
@@ -15,6 +16,7 @@ namespace Performance.StartGameManager
         [SerializeField] private GameObject startShipPoint;
         [SerializeField] private GameObject startShipObject;
         [SerializeField] private AsteroidSpawnerScript asteroidSpawner;
+        [SerializeField] private EnemySpawnerScript enemySpawner;
 
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private Button startGameButton;
@@ -38,13 +40,17 @@ namespace Performance.StartGameManager
             startShipObject.SetActive(true);
             gameOverPanel.SetActive(false);
             scoreText.gameObject.SetActive(true);
+
             asteroidSpawner.StartSpawn();
+            enemySpawner.StartSpawn();
         }
 
         public void GameOver()
         {
             startShipObject.SetActive(false);
+
             asteroidSpawner.StopSpawn();
+            enemySpawner.StopSpawn();
 
             startShipObject.transform.position = startShipPoint.transform.position;
             startShipObject.GetComponentsInChildren<Transform>()[1].rotation = Quaternion.identity;
@@ -56,12 +62,14 @@ namespace Performance.StartGameManager
 
             GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
             GameObject[] asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
+            GameObject[] enemes = GameObject.FindGameObjectsWithTag("Enemy");
 
-            int maxLength = bullets.Length > asteroids.Length ? bullets.Length : asteroids.Length;
+            int maxLength = (new int[] { bullets.Length, asteroids.Length, enemes.Length }).Max();
             for (int i = 0; i < maxLength; i++)
             {
                 if (i < bullets.Length) Destroy(bullets[i]);
                 if (i < asteroids.Length) Destroy(asteroids[i]);
+                if (i < enemes.Length) Destroy(enemes[i]);
             }
         }
     }

@@ -15,16 +15,6 @@ namespace Assets.Scripts.Performance.StarshipDeath
             if (layerMask == (layerMask | (1 << collision.gameObject.layer)))
             {
                 GameOver?.Invoke();
-                Debug.Log("trigger death");
-            }
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (layerMask == (layerMask | (1 << collision.gameObject.layer)))
-            {
-                GameOver?.Invoke();
-                Debug.Log("collision death");
             }
         }
     }

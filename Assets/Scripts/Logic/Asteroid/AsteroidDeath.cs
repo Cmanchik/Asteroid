@@ -11,13 +11,15 @@ namespace Assets.Scripts.Logic.Asteroid
         private Vector2 direction;
 
         private readonly float speedAsteroid;
+        private int deathPoint;
 
         private float RandomRadianAngleZ { get { return (float)((UnityEngine.Random.Range(0, 360) * Math.PI) / 180); } }
 
-        public AsteroidDeath(Transform transform, float speedAsteroid)
+        public AsteroidDeath(Transform transform, float speedAsteroid, int deathPoint)
         {
             this.transform = transform;
             this.speedAsteroid = speedAsteroid;
+            this.deathPoint = deathPoint;
             direction = Vector2.up;
         }
 
@@ -27,7 +29,7 @@ namespace Assets.Scripts.Logic.Asteroid
         /// <returns>Направление полета для маленького астероида</returns>
         public AsteroidSpawnInfo Death()
         {
-            ScoreScript.Instance.AddPoint();
+            ScoreScript.Instance.AddPoint(deathPoint);
             
             float radian = RandomRadianAngleZ;
 
