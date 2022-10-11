@@ -5,6 +5,7 @@ using Assets.Scripts.Performance.Movement;
 using Assets.Scripts.Performance.Spawner;
 using Assets.Scripts.Performance.StarshipDeath;
 using Assets.Scripts.Utils;
+using Performance.Score;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

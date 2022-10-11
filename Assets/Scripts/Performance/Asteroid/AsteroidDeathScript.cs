@@ -2,6 +2,7 @@
 using Assets.Scripts.Logic.Spawner;
 using Assets.Scripts.Performance.Death;
 using Assets.Scripts.Performance.Movement;
+using Performance.Score;
 using UnityEngine;
 
 namespace Assets.Scripts.Performance.Asteroid
@@ -9,7 +10,9 @@ namespace Assets.Scripts.Performance.Asteroid
     public class AsteroidDeathScript : DeathScript
     {
         [SerializeField] private float speedAsteroid;
+
         [SerializeField] private int deathPoint;
+
         [SerializeField] private EAsteroidStatus asteroidStatus;
         [SerializeField] private GameObject smallAsteroidPrefab;
 
@@ -23,6 +26,7 @@ namespace Assets.Scripts.Performance.Asteroid
         private void SpawnSmallAsteroid()
         {
             AsteroidSpawnInfo spawnInfo = asteroidDeath.Death();
+            ScoreScript.Instance.AddPoint(deathPoint);
 
             GameObject creatingAsteroid = Instantiate(smallAsteroidPrefab, spawnInfo.SpawnPoint, Quaternion.identity);
             creatingAsteroid.GetComponent<RectilinearMovementScript>().Init(spawnInfo.MovementDirection);

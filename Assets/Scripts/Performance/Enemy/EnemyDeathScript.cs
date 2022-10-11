@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Performance.Death;
 using Performance;
+using Performance.Score;
 using UnityEngine;
 
 namespace Assets.Scripts.Performance.Enemy

@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Utils;
-using UnityEngine;
 
-namespace Performance
+namespace Performance.Score
 {
     public class ScoreScript : Singleton<ScoreScript>
     {

@@ -1,0 +1,19 @@
+{
+    "name": "Performance",
+    "rootNamespace": "",
+    "references": [
+        "GUID:5bd62b9814b19bc4db7e3659a84357c7",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:4635f325ee2622d40a01eb4cd2d4f29a",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
